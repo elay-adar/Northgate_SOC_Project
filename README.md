@@ -46,7 +46,7 @@ Northgate Retail Ltd suffered a supply-chain intrusion in which an external acto
 | File / Folder | Description |
 |---|---|
 | `README.md` | This file |
-| `IR_Report.pdf` | Full written investigation report |
-| `logs/` | Raw CSV log exports used during analysis |
-| `Final_Presentation` | Stakeholder-facing summary deck |
-| `ai-verification-log` | Record of where AI assistance was used, verified, corrected, or rejected during this investigation |
+| `northgate-investigation-report.pdf` | Full written investigation report |
+| `northgate-data/` | Raw CSV log exports used during analysis |
+| `Final_Presentation.pdf` | Stakeholder-facing summary deck |
+| `ai-verification-log.xlsx` | Record of where AI assistance was used, verified, corrected, or rejected during this investigation |
