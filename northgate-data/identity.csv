@@ -1,0 +1,35 @@
+user,full_name,department,manager,account_type,start_date,termination_date,mfa_enrolled,groups
+kfir.m@arctic-serv,קפיר מ׳,External-Vendor,a.mizrahi,vendor,2024-03-11,,no,Supplier-Portal-Users
+dana.k@arctic-serv,דנה ק׳,External-Vendor,a.mizrahi,vendor,2023-09-04,,no,Supplier-Portal-Users
+svc_pricefeed,,Service,a.mizrahi,service,2021-02-01,,no,POS-Config-Push
+svc_posmon,,Service,a.mizrahi,service,2021-02-01,,no,POS-Monitor
+a.mizrahi,אבי מזרחי,IT-Infra,g.shemesh,admin,2018-05-20,,yes,Domain-Admins;Server-Ops
+r.stern,רותם שטרן,Payments,g.shemesh,standard,2020-11-02,,yes,Payments-Ops;POS-Mgmt-Users
+e.katz,עידן כץ,IT-Security,g.shemesh,standard,2019-06-17,,yes,Security-Analysts
+n.barzilai,נטע ברזילי,Finance,o.raviv,standard,2019-01-08,,yes,Finance-Users
+y.oren,יונתן אורן,Procurement,o.raviv,standard,2017-04-23,,yes,Procurement-Users;FS-Vendors-RW
+g.shemesh,גיא שמש,Management,,standard,2016-02-15,,yes,Managers
+o.raviv,אורית רביב,Finance,g.shemesh,standard,2017-10-01,,yes,Finance-Users;Managers
+h.peretz,חן פרץ,IT-Infra,a.mizrahi,standard,2021-03-14,,yes,Server-Ops
+m.saban,מיכל סבן,IT-Infra,a.mizrahi,standard,2022-08-01,,yes,Server-Ops
+d.levi,דניאל לוי,IT-Security,g.shemesh,standard,2022-01-09,,yes,Security-Analysts
+s.arbel,שרון ארבל,Payments,g.shemesh,standard,2021-05-30,,yes,Payments-Ops
+t.hadar,תום הדר,Payments,g.shemesh,standard,2023-02-12,,yes,Payments-Ops
+l.beit,ליאור בית הלחמי,Procurement,o.raviv,standard,2020-07-19,,yes,Procurement-Users
+r.avni,רועי אבני,Procurement,o.raviv,standard,2022-11-06,,yes,Procurement-Users
+n.hazan,נועה חזן,Finance,o.raviv,standard,2021-09-27,,yes,Finance-Users
+e.shalom,עידית שלום,Finance,o.raviv,standard,2023-06-04,,yes,Finance-Users
+a.dahan,אסף דהן,HR,g.shemesh,standard,2019-11-11,,yes,HR-Users
+m.tal,מאיה טל,HR,g.shemesh,standard,2022-04-03,,yes,HR-Users
+y.segev,יובל שגב,Logistics,o.raviv,standard,2018-08-26,,yes,Logistics-Users
+k.oz,קרן עוז,Logistics,o.raviv,standard,2021-12-05,,yes,Logistics-Users
+b.naim,בר נעים,Logistics,o.raviv,standard,2023-03-19,,yes,Logistics-Users
+i.golan,עידו גולן,Branch-Ops,g.shemesh,standard,2019-02-24,,yes,Branch-Managers
+s.mor,סתיו מור,Branch-Ops,g.shemesh,standard,2020-05-17,,yes,Branch-Managers
+v.harel,ויקי הראל,Branch-Ops,g.shemesh,standard,2021-07-08,,yes,Branch-Managers
+z.amar,זיו עמר,Branch-Ops,g.shemesh,standard,2022-10-16,,yes,Branch-Managers
+p.stein,פאר שטיין,Branch-Ops,g.shemesh,standard,2023-01-29,,yes,Branch-Managers
+c.barak,כרמל ברק,Marketing,o.raviv,standard,2020-09-13,,yes,Marketing-Users
+u.regev,אורי רגב,Marketing,o.raviv,standard,2022-06-21,,yes,Marketing-Users
+f.zohar,פליקס זוהר,IT-Infra,a.mizrahi,standard,2023-09-11,,yes,Server-Ops
+g.ben-ari,גל בן ארי,Payments,g.shemesh,standard,2024-01-15,,yes,Payments-Ops
