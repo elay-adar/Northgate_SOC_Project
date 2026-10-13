@@ -2,8 +2,6 @@
 
 **Investigation Team:** Elay Adar (Case Lead), Yossef (Identity & Access), Gavriel (Data & Impact)
 
-> Elay Adar led this investigation end to end - scoping the case, owning the executive summary and incident classification, and compiling the final report and MITRE ATT&CK mapping.
-
 ---
 
 ## 1. Executive Summary
