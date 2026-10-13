@@ -54,3 +54,67 @@ Execute the following Splunk Processing Language (SPL) queries to verify data in
 ### 1. Sourcetype Event Count Verification
 ```spl
 index=northgate | stats count by sourcetype
+```
+Expected result: seven rows that match the record counts in the metadata table (58,194 events in total).
+
+| sourcetype | count |
+| :--- | ---: |
+| `fileaudit` | 35,528 |
+| `winevent` | 11,526 |
+| `proxy` | 4,838 |
+| `weblog` | 4,970 |
+| `cloudaudit` | 689 |
+| `vpn` | 540 |
+| `backup` | 103 |
+
+### 2. Time Range Verification
+```spl
+index=northgate
+| stats min(_time) as first_event max(_time) as last_event by sourcetype
+| convert ctime(first_event) ctime(last_event)
+```
+Expected result: all sources fall between `2026-05-23 01:02:22` and `2026-08-20 14:58:44`, as stored in the files. The latest `winevent` value (`2026-08-20 14:58:44`) is `11:58:44` in UTC, which is the end of the dataset stated above. No source should show a date outside this range.
+
+### 3. Windows Event Field Parsing
+```spl
+index=northgate sourcetype=winevent
+| stats count by EventCode
+```
+Expected result: nine event codes. If `EventCode` is empty, the CSV was not parsed as `Structured`: repeat Step 1 for this file.
+
+| EventCode | count |
+| :--- | ---: |
+| `4624` | 5,405 |
+| `5140` | 1,225 |
+| `4769` | 2,497 |
+| `4634` | 1,796 |
+| `4688` | 483 |
+| `4672` | 61 |
+| `4625` | 56 |
+| `4698` | 2 |
+| `1116` | 1 |
+
+### 4. File Audit Action Check
+```spl
+index=northgate sourcetype=fileaudit
+| stats count by action
+```
+Expected result:
+
+| action | count |
+| :--- | ---: |
+| `write` | 30,408 |
+| `read` | 2,385 |
+| `delete` | 2,510 |
+| `create` | 225 |
+
+### 5. Lookup Verification
+```spl
+| inputlookup assets.csv | stats count
+```
+```spl
+| inputlookup identity.csv | stats count
+```
+Expected result: `79` rows for `assets.csv` and `34` rows for `identity.csv`. If the search returns an error, the lookup table file or its definition from Step 2 is missing.
+
+Once all five checks match, the dataset is ready for investigation.
