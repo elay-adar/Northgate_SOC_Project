@@ -47,6 +47,9 @@ Northgate Retail Ltd suffered a supply-chain intrusion in which an external acto
 |---|---|
 | `README.md` | This file |
 | `northgate-investigation-report.pdf` | Full written investigation report |
-| `northgate-data/` | Raw CSV log exports used during analysis |
+| `northgate-data/` | Raw CSV log exports used during analysis, with the Splunk ingestion guide |
+| `queries/` | SPL queries from the investigation by report section (question, query, finding), plus the timeline queries |
 | `Final_Presentation.pdf` | Stakeholder-facing summary deck |
-| `ai-verification-log.xlsx` | Record of where AI assistance was used, verified, corrected, or rejected during this investigation |
+| `ai-verification-log-project.xlsx` | Record of where AI assistance was used, verified, corrected, or rejected during this investigation |
+
+**Dataset:** the log data in `northgate-data/` was provided as part of a SOC Analyst course.
