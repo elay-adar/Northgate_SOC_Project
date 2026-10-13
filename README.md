@@ -39,6 +39,30 @@ Northgate Retail Ltd suffered a supply-chain intrusion in which an external acto
 
 ---
 
+## 4. MITRE ATT&CK Mapping
+
+Technique-level mapping of the attack chain, with the detection status recorded in the investigation report (section 8). The `a.mizrahi` account takeover is the one stage marked as not detected; no detection is recorded for the `r.stern` takeover.
+
+| Stage | Tactic | Technique | Detected | Source |
+|---|---|---|---|---|
+| `POST /supplier/login` | Initial Access (TA0001) | Valid Accounts (T1078) | yes | weblog |
+| 44 API requests enumerating `/inventory` | Reconnaissance (TA0043) | Active Scanning (T1595)<br>Active Scanning: Wordlist Scanning (T1595.003) | yes | weblog |
+| `w3wp.exe` spawns `cmd.exe` and runs `whoami`, `ipconfig /all`, `net view` | Execution (TA0002), Discovery (TA0007) | Command and Scripting Interpreter: Windows Command Shell (T1059.003)<br>System Owner/User Discovery (T1033)<br>System Network Configuration Discovery (T1016)<br>Network Share Discovery (T1135)<br>Network Service Discovery (T1046) | yes | winevent |
+| Scheduled task creation | Persistence (TA0003), Privilege Escalation (TA0004) | Scheduled Task/Job: Scheduled Task (T1053.005) | yes | winevent |
+| Account takeover of `a.mizrahi` on SRV-VEND-APP, admin credentials used from the compromised host | Privilege Escalation (TA0004), Lateral Movement (TA0008), Credential Access (TA0006) | Valid Accounts: Domain Accounts (T1078.002)<br>Use Alternate Authentication Material (T1550)<br>OS Credential Dumping (T1003) | no | winevent |
+| `a.mizrahi` logon type 3 from SRV-VEND-APP | Lateral Movement (TA0008), Defense Evasion (TA0005) | Remote Services (T1021)<br>Valid Accounts: Domain Accounts (T1078.002) | yes | winevent |
+| Automated network share enumeration (SMB event 5140) | Discovery (TA0007), Collection (TA0009) | Network Share Discovery (T1135)<br>Data from Network Shared Drive (T1039) | yes | fileaudit |
+| Account takeover of `r.stern` on SRV-VEND-APP | Privilege Escalation (TA0004), Lateral Movement (TA0008), Credential Access (TA0006) | Valid Accounts: Domain Accounts (T1078.002)<br>Use Alternate Authentication Material (T1550)<br>OS Credential Dumping (T1003) | - | - |
+| `r.stern` logon type 3 from SRV-VEND-APP | Lateral Movement (TA0008) | Remote Services: SMB/Windows Admin Shares (T1021.002)<br>Valid Accounts: Domain Accounts (T1078.002) | yes | winevent |
+| Automated POS profile deployment via `ngpos-cfg.exe` | Execution (TA0002), Defense Evasion (TA0005) | System Services: Service Execution (T1569.002)<br>Abuse Elevation Control Mechanism (T1548) | yes | winevent |
+| Data collection on `\\SRV-STAGE-01\temp` in `.log.1` format | Collection (TA0009) | Archive Collected Data (T1560)<br>Data Staged: Local Data Staging (T1074.001) | yes | fileaudit |
+| Archiving `*.log.1` files into `ngsync-0819.dat` | Collection (TA0009), Defense Evasion (TA0005) | Archive Collected Data: Archive via Utility (T1560.001) | yes | winevent |
+| 6 POSTs to `edge-sync-eu.net` | Exfiltration (TA0010), Command and Control (TA0011) | Exfiltration Over C2 Channel (T1041)<br>Scheduled Transfer (T1029)<br>Application Layer Protocol: Web Protocols (T1071.001) | yes | proxy |
+| Deletion of the scheduled task | Defense Evasion (TA0005) | Indicator Removal: Clear Persistence (T1070.009) | yes | winevent |
+| Deletion of a large number of `*.log.1` files on `\\SRV-STAGE-01\temp` | Defense Evasion (TA0005) | Indicator Removal: File Deletion (T1070.004) | yes | fileaudit |
+
+---
+
 ## Repository Contents
 
 | File / Folder | Description |
