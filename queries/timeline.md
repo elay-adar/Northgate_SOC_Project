@@ -53,7 +53,7 @@ index=northgate sourcetype=winevent EventCode=4624 src_host="SRV-VEND-APP" extra
 ## Query 6
 
 ```spl
-index=northgate sourcetype=fileaudit server="SRV-STAGE-01" object_path="*.log.1*" latest="08/18/2026:00:10:01"
+index=northgate sourcetype=fileaudit server="SRV-STAGE-01" object_path="*.log.1*" latest="08/19/2026:00:10:01"
 | stats dc(object_path) as object_path_count sum(bytes_out) as total_bytes_out
 | eval total_MB_transfered = round(total_bytes_out / 1024 / 1024, 2)
 | fields object_path_count, total_MB_transfered
@@ -74,15 +74,16 @@ index=northgate sourcetype=winevent EventCode=4688 actor="r.stern" (process="ngp
 ## Query 8
 
 ```spl
-index=northgate sourcetype=fileaudit actor="r.stern"
-| where src_host!="WKS-PAY-02" and src_host!="SRV-STAGE-01"
-| stats count, dc(object_path) as distinct_object_path, values(action) as action, sum(bytes_out) as total_bytes, min(time) as min_time, max(time) as max_time by src_host, server
-| eventstats sum(count) as total_actions_all, sum(total_bytes) as total_bytes_all
-| eval MB_transferred = round(total_bytes / 1024 / 1024, 2)
-| eval total_MB_transferred_all = round(total_bytes_all / 1024 / 1024, 2)
-| sort min_time
-| where distinct_object_path=count
-| table src_host, server, count, distinct_object_path, action, MB_transferred, min_time, max_time, total_actions_all, total_MB_transferred_all
+index=northgate sourcetype=fileaudit actor="r.stern" src_host!="WKS-PAY-02" src_host!="SRV-STAGE-01"
+| rex field=object_path "(?<file_type>\.[^\\\\]+)$"
+| fillnull value="no_extension" file_type
+| stats dc(object_path) as distinct_files values(action) as actions values(file_type) as file_types sum(bytes_out) as bytes min(_time) as first_seen max(_time) as last_seen by src_host, server
+| eventstats sum(bytes) as total_bytes values(file_types) as all_file_types dc(src_host) as total_hosts
+| eval MB_per_host=round(bytes/1024/1024,2), total_MB=round(total_bytes/1024/1024,2)
+| eval only_log1=if(mvcount(all_file_types)=1 AND mvindex(all_file_types,0)=".log.1","yes","no")
+| sort first_seen
+| eval first_seen=strftime(first_seen,"%Y-%m-%d %H:%M:%S"), last_seen=strftime(last_seen,"%Y-%m-%d %H:%M:%S")
+| table src_host, server, distinct_files, actions, MB_per_host, first_seen, last_seen, total_hosts, total_MB, only_log1, all_file_types
 ```
 
 ## Query 9
